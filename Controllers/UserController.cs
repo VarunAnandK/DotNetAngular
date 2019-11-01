@@ -7,7 +7,6 @@ using System.Text;
 using Alpha.Database;
 using Alpha.Database.Tables;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +14,7 @@ using WebApi.Helpers;
 
 namespace Alpha.Controllers
 {
+    [Authorize("Bearer")]
     [Route("api/[action]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -26,12 +26,13 @@ namespace Alpha.Controllers
             this._repository = repository;
             this._appSettings = appSettings.Value;
         }
-
+        [HttpGet]
         public IActionResult UserList()
         {
             var userdata = this._repository.GetAll<User>().ToList();
             return Ok(userdata);
         }
+        [HttpGet]
         public IActionResult UserById(long Id)
         {
             var userdata = this._repository.GetById<User>(Id);
