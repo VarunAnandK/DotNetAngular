@@ -1,0 +1,49 @@
+<br/>
+<br/>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="assets/img/logo.png" class="img-fluid logo-desktop" alt="logo" style="height: 155px" />
+            </div>
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input pInputText class="form-control" name="name" type="text" [(ngModel)]="User.user_name" placeholder="User Name" />
+                            <div class="input-group-append input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input pInputText class="form-control" name="name" type="password" [(ngModel)]="User.password" placeholder="password" />
+                            <div class="input-group-append input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat" (click)="ValidateLogin()">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+                    <br/>
+                    <br/>
+                    <strong><u>Parent Login</u></strong>
+                    <p>
+                      <strong>Username</strong> : Register MobileNo (Ex:98439 89088)
+                      <br/>
+                      <strong>Password</strong> : Student DOB (Ex:22102019)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+</ngx-spinner>

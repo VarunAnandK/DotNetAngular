@@ -1,0 +1,168 @@
+<div class="light-sidebar">
+    <div class="app">
+        <div class="app-wrap">
+            <header class="app-header top-bar">
+                <nav class="navbar navbar-expand-md">
+                    <div class="navbar-header d-flex align-items-center">
+                        <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/img/logo.png" class="img-fluid logo-desktop" alt="logo" />
+                            <img src="assets/img/logo-icon.png" class="img-fluid logo-mobile" alt="logo" />
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="ti ti-align-left"></i>
+              </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="navigation d-flex">
+                            <ul class="navbar-nav nav-left">
+                                <li class="nav-item">
+                                    <a href="javascript:void(0)" class="nav-link sidebar-toggle">
+                                        <i class="ti ti-align-right text-white"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item full-screen d-none d-lg-block" id="btnFullscreen">
+                                    <a href="javascript:void(0)" class="nav-link expand">
+                                        <i class="icon-size-fullscreen"></i>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="navbar-nav nav-right ml-auto">
+                                <!-- <a [routerLink]="['/PosNavbar']">
+                                  <span class="fa fa-th" style="color: white"></span>
+                                </a> -->
+                                <li class="nav-item dropdown user-profile">
+                                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <li class="fa fa-plug" style="color: white"> {{helper.CurrentModule}}</li>
+                                    </a>
+
+                                    <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                        <div class="bg-warning px-4 py-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="mr-1">
+                                                    <h4 class="text-white mb-0">Module</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)" [routerLink]="['/' + item.RouterLink]" routerLinkActive="router-link-active" *ngFor="let item of Module">
+                                                <i [class]="item.Icon"></i> {{item.Label}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown user-profile"></li>
+                                <li class="nav-item dropdown user-profile">
+                                    <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img src="assets/img/avtar/02.jpg" alt="avtar-img" />
+                                        <span class="bg-success user-status"></span>
+                                    </a>
+                                    <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                        <div class="bg-warning px-4 py-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="mr-1">
+                                                    <h4 class="text-white mb-0">{{helper.GetCurentUser().user_name}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4">
+                                            <a class="dropdown-item d-flex nav-link" (click)="ChangePasswordPopup()">
+                                                <i class="fa fa-unlock-alt pr-2 text-primary"></i> Change password
+                                            </a>
+                                            <a class="dropdown-item d-flex nav-link" [routerLink]="['/Logout/' +this.helper.GetCurentUser().id]">
+                                                <i class="fa fa-sign-out pr-2 text-info"></i> Logout
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <div class="app-container">
+                <aside class="app-navbar">
+                    <div class="sidebar-nav scrollbar scroll_light">
+                        <ul class="metismenu " id="sidebarNav">
+                            <ng-container *ngFor="let item of Menu">
+                                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="item.RouterLink.length > 0 && item.Visiable">
+                                    <a aria-expanded="false" [routerLink]="[ '/' + item.RouterLink] " routerLinkActive="router-link-active ">
+                                        <i [class]="'menu-icon ' + item.Icon"></i>
+                                        <span class="nav-title">{{item.Label}}</span>
+                                    </a>
+                                </li>
+                                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="item.RouterLink.length == 0 && item.Visiable" class="treeview">
+                                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                        <i [class]="'menu-icon ' + item.Icon"></i>
+                                        <span class="nav-title">{{item.Label}}</span>
+                                    </a>
+                                    <ul aria-expanded="false">
+                                        <ng-container *ngFor="let childitem of item.ChildMenu">
+                                            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" aria-expanded="false">
+                                                <a [routerLink]="[ '/' + childitem.RouterLink] " *ngIf="childitem.Visiable">
+                                                    <span class="nav-title"> {{childitem.Label}} </span>
+                                                </a>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                </aside>
+                <div class="app-main" id="main">
+                    <div class="container-fluid">
+                        <!--Breadcump begin row -->
+                        <div class="row">
+                            <div class="col-md-12 m-b-30">
+                                <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                                    <div class="page-title mb-2 mb-sm-0">
+                                        <h1 class="text-white">{{insertSpaces(helper.CurrentPage[1])}}</h1>
+                                    </div>
+                                    <div class="ml-auto d-flex align-items-center">
+                                        <nav>
+                                            <ol class="breadcrumb p-0 m-b-0">
+                                                <li class="breadcrumb-item text-white">
+                                                    {{insertSpaces(helper.CurrentPage[0])}}
+                                                </li>
+                                                <li class="breadcrumb-item active text-white" aria-current="page" *ngIf="helper.CurrentPage[2]">
+                                                    <a style="color: white" [routerLink]="[ '/' + helper.CurrentPage[0] + '/' + helper.CurrentPage[2]]">{{insertSpaces(helper.CurrentPage[2])}}</a>
+                                                </li>
+                                                <li class="breadcrumb-item active text-white" aria-current="page" *ngIf="!helper.CurrentPage[1].includes('List')">
+                                                    {{insertSpaces(helper.CurrentPage[1])}}
+                                                </li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-12 selects-contant">
+                                <div class="card card-statistics">
+                                    <div class="card-body p-3">
+                                        <router-outlet></router-outlet>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center text-sm-left">
+                                <p>&copy; Copyright 2019. All rights reserved.</p>
+                            </div>
+                            <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                                <p>Hand-crafted made with <i class="fa fa-heart text-danger mx-1"></i> by <a href="http://www.alphaesolutions.in/" target="_blank">Alpha eSolutions</a></p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+</ngx-spinner>
