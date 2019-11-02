@@ -55,7 +55,7 @@ export class ChangepasswordComponent implements OnInit {
     this.helper.ShowSpinner();
     //this.new_password = this.helper.GetCurentUser().password;
     let data = {
-      userid: this.helper.GetCurentUser().id,
+      userid: this.helper.GetCurentUser().Id,
       password : this.new_password,
       conformpassword : this.conform_password,
     }

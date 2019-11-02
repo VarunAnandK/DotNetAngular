@@ -31,12 +31,12 @@ export class MainComponent implements OnInit, DoCheck {
     });
 
     const channel = this.pusherClient.subscribe(
-      "AlphaChannel" + this.helper.GetCurentUser().id
+      //"AlphaChannel" + this.helper.GetCurentUser().id
     );
 
     channel.bind("AlphaEvent", data => {
       setTimeout(() => {
-        this.router.navigate(["Logout/" + this.helper.GetCurentUser().id]);
+        this.router.navigate(["Logout/" + this.helper.GetCurentUser().Id]);
       }, 1000);
     });
 

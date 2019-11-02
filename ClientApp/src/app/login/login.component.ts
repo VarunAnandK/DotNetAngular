@@ -33,18 +33,28 @@ export class LoginComponent implements OnInit {
   ValidateLogin() {
     debugger;
     this.helper.ShowSpinner();
-    this.User.old_guid = this.helper.GetLocalStorage("oldfunuuid");
-    this.User.old_session_id = this.helper.GetLocalStorage("oldfunsessionid");
+    // this.User.old_guid = this.helper.GetLocalStorage("oldfunuuid");
+    // this.User.old_session_id = this.helper.GetLocalStorage("oldfunsessionid");
 
     this.commonservice.CommonPost(this.User, "Authenticate").subscribe(
       (res: ApiResponseModel) => {
         this.Res = res;
-        // if (res.Type == "S") {
-        //   this.helper.SucessToastr(res.Message, "State");
-        //   this.ref.close(true);
-        // } else {
-        //   this.helper.ErrorToastr(res.Message, "State");
-        // }
+        this.helper.SucessToastr(res.Message, "Login");
+          this.helper.SetLocalStorage(
+            this.helper.StorageName,
+            res.AdditionalData["User"]
+          );
+          this.helper.SetLocalStorage(
+            "AESCompany",
+            res.AdditionalData["Company"]
+          );
+          let resuser: any = res.AdditionalData["User"];
+          // if (this.helper.NullOrEmpty(resuser.landing_page)) {
+              this.router.navigate(["/Admin/Dashboard"]);
+          // } else {
+          //   this.helper.CurrentModule = resuser.landing_page.split("/")[1];
+          //   this.router.navigate([resuser.landing_page]);
+          // }
       },
       error => {
         this.helper.HideSpinner();
