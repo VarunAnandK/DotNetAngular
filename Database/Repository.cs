@@ -28,17 +28,22 @@ namespace Alpha.Database
         {
             return this._applicationcontext.Set<T>().Where(expression).AsNoTracking();
         }
-        public void Insert<T>(T entity) where T : BaseEntity
+        public long Insert<T>(T entity) where T : BaseEntity
         {
             this._applicationcontext.Set<T>().Add(entity);
+            this._applicationcontext.SaveChanges();
+            return entity.Id;
         }
         public void Update<T>(T entity) where T : BaseEntity
         {
             this._applicationcontext.Set<T>().Update(entity);
+            this._applicationcontext.SaveChanges();
         }
-        public void Delete<T>(T entity) where T : BaseEntity
+        public void Delete<T>(long Id) where T : BaseEntity
         {
-            this._applicationcontext.Set<T>().Remove(entity);
+            var data = this._applicationcontext.Set<T>().Find(Id);
+            this._applicationcontext.Set<T>().Remove(data);
+            this._applicationcontext.SaveChanges();
         }
     }
 }

@@ -1,6 +1,6 @@
 export class BaseModel {
-  Id: number;
-  Status: boolean;
+  Id: number = 0;
+  Status: boolean = true;
   CreatedBy: number;
   CreatedDate: Date;
   UpdatedBy: number;

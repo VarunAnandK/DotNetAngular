@@ -16,13 +16,13 @@ export class CommonService {
     return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}/${id}`);
   }
   public InsertOrUpdate(model: any, UrlName: string) {
-    if (model.id == 0) {
+    if (model.Id == 0) {
       model.created_by_id = this.helper.GetUserId();
       return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Insert`, model);
     }
     else {
       model.updated_by_id = this.helper.GetUserId();
-      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Update/${model.id}`, model);
+      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Update`, model);
     }
   }
   public CommonPost(model: any, UrlName: string) {

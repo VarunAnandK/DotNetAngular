@@ -25,20 +25,20 @@ export class MainComponent implements OnInit, DoCheck {
 
   ngOnInit() {
 
-    this.pusherClient = new Pusher("9511248f96e5692c6bc2", {
-      cluster: "ap2",
-      forceTLS: true
-    });
+    // this.pusherClient = new Pusher("9511248f96e5692c6bc2", {
+    //   cluster: "ap2",
+    //   forceTLS: true
+    // });
 
-    const channel = this.pusherClient.subscribe(
-      //"AlphaChannel" + this.helper.GetCurentUser().id
-    );
+    // const channel = this.pusherClient.subscribe(
+    //   //"AlphaChannel" + this.helper.GetCurentUser().id
+    // );
 
-    channel.bind("AlphaEvent", data => {
-      setTimeout(() => {
-        this.router.navigate(["Logout/" + this.helper.GetCurentUser().Id]);
-      }, 1000);
-    });
+    // channel.bind("AlphaEvent", data => {
+    //   setTimeout(() => {
+    //     this.router.navigate(["Logout/" + this.helper.GetCurentUser().Id]);
+    //   }, 1000);
+    // });
 
     $(function() {
       var sidebarNav = $(".sidebar-nav");
@@ -62,12 +62,6 @@ export class MainComponent implements OnInit, DoCheck {
         Icon: "fa fa-briefcase fa-2x",
         RouterLink: "Admin/Dashboard",
         Visiable: true
-      },
-      {
-        Label: "Parent",
-        Icon: "fa fa-briefcase fa-2x",
-        RouterLink: "Parent/Dashboard",
-        Visiable: true
       }
     ];
     this.Menu = new Array<MenuModel>();
@@ -80,76 +74,6 @@ export class MainComponent implements OnInit, DoCheck {
         Visiable: true
       },
       {
-        Module: "Parent",
-        Label: "Dashboard",
-        RouterLink: "Parent/Dashboard",
-        Icon: "fas fa-tachometer-alt",
-        Visiable: true
-      },
-      {
-        Module: "Parent",
-        Label: "Student",
-        RouterLink: "Parent/Student/:Id",
-        Icon: "fa fa-building",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "POS",
-        RouterLink: "Admin/PosDashboard",
-        Icon: "fa fa-th",
-        Visiable: true
-      },
-      {
-        Module: "Canteen",
-        Label: "POS",
-        RouterLink: "Canteen/PosDashboard",
-        Icon: "fa fa-th",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "School",
-        RouterLink: "Admin/School/1",
-        Icon: "fa fa-building",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "Student",
-        RouterLink: "Admin/StudentList",
-        Icon: "fa fa-user",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "Topup",
-        RouterLink: "Admin/StudentTopupList",
-        Icon: "fa fa-rupee-sign",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "Reverse",
-        RouterLink: "Admin/StudentTopupReverseList",
-        Icon: "fa fa-rupee-sign",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "Product",
-        RouterLink: "Admin/ProductList",
-        Icon: "fa fa-shopping-cart",
-        Visiable: true
-      },
-      {
-        Module: "Admin",
-        Label: "Invoice List",
-        RouterLink: "Admin/InvoiceList",
-        Icon: "fas fa-file-invoice",
-        Visiable: true
-      },
-      {
         Module: "Admin",
         Label: "Setup",
         RouterLink: "",
@@ -157,55 +81,6 @@ export class MainComponent implements OnInit, DoCheck {
         Visiable: true,
         ChildId: "CRMSetup",
         ChildMenu: [
-          {
-            Module: "Admin",
-            Label: "State",
-            RouterLink: "Admin/StateList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "City",
-            RouterLink: "Admin/CityList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "Payment Method",
-            RouterLink: "Admin/PaymentMethodList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "Unit Of Measurement",
-            RouterLink: "Admin/UnitOfMeasurementList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "Product Category",
-            RouterLink: "Admin/ProductCategoryList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "Class Room",
-            RouterLink: "Admin/ClassRoomList",
-            Icon: "fas fa-tachometer-alt",
-            Visiable: true
-          },
-          {
-            Module: "Admin",
-            Label: "User Role",
-            RouterLink: "Admin/UserRoleList",
-            Icon: "fa fa-user-o",
-            Visiable: true
-          },
           {
             Module: "Admin",
             Label: "User",

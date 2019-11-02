@@ -10,7 +10,6 @@ import { RadioButtonModule } from "primeng/radiobutton";
 import { CheckboxModule } from "primeng/checkbox";
 import { DropdownModule } from "primeng/dropdown";
 import { CalendarModule } from "primeng/calendar";
-import { FullCalendarModule } from "primeng/fullcalendar";
 import { DragDropModule } from "primeng/dragdrop";
 import { CardModule } from "primeng/card";
 import { RatingModule } from "primeng/rating";
@@ -33,7 +32,6 @@ export const ModuleData = [
   DropdownModule,
   RadioButtonModule,
   CalendarModule,
-  FullCalendarModule,
   DragDropModule,
   CardModule,
   RatingModule,

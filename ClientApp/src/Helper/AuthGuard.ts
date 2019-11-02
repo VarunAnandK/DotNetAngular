@@ -10,16 +10,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.helper.GetUserId() > 0) {
-      // this.helper.BreadCrumbModel = [
-      //   {label:'Categories'},
-      //   {label:'Sports'},
-      //   {label:'Football'},
-      //   {label:'Countries'},
-      //   {label:'Spain'},
-      //   {label:'F.C. Barcelona'},
-      //   {label:'Squad'},
-      //   {label:'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi'}
-      // ]
       this.helper.CurrentModule = route.routeConfig.path.split("/")[0];
       this.helper.GetCurrentPageAndModule(route.routeConfig.path);
       return true;
