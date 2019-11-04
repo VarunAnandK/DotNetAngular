@@ -26,7 +26,6 @@ namespace Alpha.Database.Tables
         public long? UpdatedBy { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
-        public long CompanyId { get; set; }
 
     }
 }

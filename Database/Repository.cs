@@ -1,7 +1,9 @@
 ﻿using Alpha.Database.Tables;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -44,6 +46,33 @@ namespace Alpha.Database
             var data = this._applicationcontext.Set<T>().Find(Id);
             this._applicationcontext.Set<T>().Remove(data);
             this._applicationcontext.SaveChanges();
+        }
+
+        public DataTable DBSelect(string query)
+        {
+            SqlConnection connection = new SqlConnection(this._applicationcontext.Database.GetDbConnection().ConnectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand("", connection)
+            {
+                CommandType = CommandType.Text,
+                CommandText = query
+            };
+            SqlDataReader reader = command.ExecuteReader();
+            var entity = new List<dynamic>();
+            DataTable dt = new DataTable();
+            if (reader.HasRows)
+            {
+                dt.Load(reader);
+            }
+            return dt;
+        }
+        public bool DBCommands(string query)
+        {
+            int data = this._applicationcontext.Database.ExecuteSqlRaw(query);
+            if (data > 0)
+                return false;
+            else
+                return true;
         }
     }
 }
