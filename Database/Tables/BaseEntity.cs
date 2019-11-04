@@ -4,11 +4,11 @@ namespace Alpha.Database.Tables
 {
     public abstract class BaseEntity
     {
-        public long Id { get; set; }
-        public bool Status { get; set; }
-        public long CreatedBy { get; set; }
+        public long id { get; set; }
+        public bool status { get; set; }
+        public long created_by_id { get; set; }
         private DateTime? _createdDate = null;
-        public DateTime CreatedDate
+        public DateTime created_on
         {
             get
             {
@@ -23,9 +23,9 @@ namespace Alpha.Database.Tables
                 _createdDate = value;
             }
         }
-        public long? UpdatedBy { get; set; }
+        public long? updated_by_id { get; set; }
 
-        public DateTime? UpdatedDate { get; set; }
+        public DateTime? updated_on { get; set; }
 
     }
 }

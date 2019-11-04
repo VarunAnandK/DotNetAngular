@@ -1,10 +1,12 @@
 ﻿namespace Alpha.Database.Tables
 {
-    public partial class User : BaseEntity
+    public partial class user : BaseEntity
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string Token { get; set; }
+        public string user_name { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public string token { get; set; }
+        public long user_role_id { get; set; }
+        public user_role user_role { get; set; }
     }
 }

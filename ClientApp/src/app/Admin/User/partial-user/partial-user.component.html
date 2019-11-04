@@ -3,23 +3,30 @@
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
-                    <app-label Required="true" LabelText="User Name"></app-label>
-                    <input pInputText formControlName="UserName" [(ngModel)]="UserData.UserName" />
-                    <app-validation-message propertyName="UserName" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
+                    <app-label Required="True" LabelText="User Role"></app-label>
+                    <p-dropdown [style]="{ width: '100%' }" [filter]="true" [options]="UserRoledropdown" formControlName="user_role_id" [(ngModel)]="UserData.user_role_id"></p-dropdown>
+                    <app-validation-message propertyName="user_role_id" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
                 </div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
-                    <app-label Required="true" LabelText="Email"></app-label>
-                    <input pInputText formControlName="Email" [(ngModel)]="UserData.Email" />
-                    <app-validation-message propertyName="Email" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
+                    <app-label Required="true" LabelText="User Name"></app-label>
+                    <input pInputText formControlName="user_name" [(ngModel)]="UserData.user_name" />
+                    <app-validation-message propertyName="user_name" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
                 </div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-12">
                     <app-label LabelText="Password" Required="true"></app-label>
-                    <input pInputText formControlName="Password" [(ngModel)]="UserData.Password" />
-                    <app-validation-message propertyName="Password" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
+                    <input pInputText formControlName="password" [(ngModel)]="UserData.password" />
+                    <app-validation-message propertyName="password" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <app-label Required="true" LabelText="Email"></app-label>
+                    <input pInputText formControlName="email" [(ngModel)]="UserData.email" />
+                    <app-validation-message propertyName="email" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
                 </div>
             </div>
         </div>
@@ -30,8 +37,8 @@
 <p-footer>
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <button pButton type="button" *ngIf="UserData.Id == 0" [disabled]="UserForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Save" (click)="CreateOrUpdate()" class="ui-button-success pull-right" icon="pi pi-check"></button>
-            <button pButton type="button" *ngIf="UserData.Id > 0" [disabled]="UserForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Update" (click)="CreateOrUpdate()" class="ui-button-success pull-right" icon="pi pi-check"></button>
+            <button pButton type="button" *ngIf="UserData.id == 0" [disabled]="UserForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Save" (click)="CreateOrUpdate()" class="ui-button-success pull-right" icon="pi pi-check"></button>
+            <button pButton type="button" *ngIf="UserData.id > 0" [disabled]="UserForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Update" (click)="CreateOrUpdate()" class="ui-button-success pull-right" icon="pi pi-check"></button>
         </div>
     </div>
 </p-footer>

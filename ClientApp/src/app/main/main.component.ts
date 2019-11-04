@@ -87,6 +87,13 @@ export class MainComponent implements OnInit, DoCheck {
             RouterLink: "Admin/UserList",
             Icon: "fa fa-user-o",
             Visiable: true
+          },
+          {
+            Module: "Admin",
+            Label: "User Role",
+            RouterLink: "Admin/UserRoleList",
+            Icon: "fa fa-user-o",
+            Visiable: true
           }
         ]
       },

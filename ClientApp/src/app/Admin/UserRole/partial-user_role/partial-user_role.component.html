@@ -1,0 +1,31 @@
+<p-header>
+    <form [formGroup]="UserRoleForm">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <app-label Required="True" LabelText="Name"></app-label>
+                    <input pInputText formControlName="name" [(ngModel)]="UserRoleData.name" />
+                    <app-validation-message propertyName="name" [MessageArray]="UserRoleValidationMessages" [FormGroupName]="UserRoleForm"></app-validation-message>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <app-label Required="False" LabelText="Landing Page"></app-label>
+                    <input pInputText formControlName="landing_page" [(ngModel)]="UserRoleData.landing_page" />
+                    <app-validation-message propertyName="landing_page" [MessageArray]="UserRoleValidationMessages" [FormGroupName]="UserRoleForm"></app-validation-message>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-header>
+<hr />
+<p-footer>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <button pButton type="button" *ngIf="UserRoleData.id > 0"  style="width: 100px;margin-right: 10px;float: right;" label="Delete" (click)="Delete()" class="ui-button-danger pull-right"></button>
+            <button pButton type="button" *ngIf="UserRoleData.id == 0" [disabled]="UserRoleForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Save" (click)="CreateOrUpdate()" class="ui-button-success pull-right"></button>
+            <button pButton type="button" *ngIf="UserRoleData.id > 0" [disabled]="UserRoleForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Update" (click)="CreateOrUpdate()" class="ui-button-success pull-right"></button>
+
+        </div>
+    </div>
+</p-footer>

@@ -1,16 +1,10 @@
 import { Injectable } from "@angular/core";
-import { NgxSpinnerService } from "ngx-spinner";
-//import { ToastrService } from "ngx-toastr";
 import { environment } from "src/environments/environment";
 import { user } from "src/Model/user";
-import { CookieService } from "ngx-cookie-service";
 import {MessageService} from 'primeng/api';
 @Injectable()
 export class CommonHelper {
   constructor(
-    private spinner: NgxSpinnerService,
-    //private toastr: ToastrService,
-    private _cookieService: CookieService,
     private messageService: MessageService
   ) {
     this.ApiURL = environment.API_URL;
@@ -27,7 +21,7 @@ export class CommonHelper {
     if (user == null) {
       return 0;
     } else {
-      return user.Id;
+      return user.id;
     }
   }
 

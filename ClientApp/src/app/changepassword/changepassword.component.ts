@@ -53,9 +53,8 @@ export class ChangepasswordComponent implements OnInit {
   CreateOrUpdate() {
 
     this.helper.ShowSpinner();
-    //this.new_password = this.helper.GetCurentUser().password;
     let data = {
-      userid: this.helper.GetCurentUser().Id,
+      userid: this.helper.GetUserId(),
       password : this.new_password,
       conformpassword : this.conform_password,
     }
@@ -64,7 +63,6 @@ export class ChangepasswordComponent implements OnInit {
         if (res.Type == "S") {
           this.helper.SucessToastr(res.Message, "User");
           this.ref.close(true);
-          //this.helper.DeleteAllLocalStorage();
           this.route.navigate(["/Login"])
         } else {
           this.helper.ErrorToastr(res.Message, "User");

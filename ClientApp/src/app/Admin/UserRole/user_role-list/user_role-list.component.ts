@@ -1,56 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { user } from 'src/Model/user';
+import { user_role } from 'src/Model/user_role';
 import { CommonService } from 'src/Service/Common.service';
 import { DialogService } from 'primeng/api';
 import { CommonHelper } from 'src/Helper/CommonHelper';
-import { PartialUserComponent } from '../partial-user/partial-user.component';
+import { PartialUserRoleComponent } from '../partial-user_role/partial-user_role.component';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'app-user_role-list',
+  templateUrl: './user_role-list.component.html',
+  styleUrls: ['./user_role-list.component.scss'],
   providers: [DialogService]
 })
-export class UserListComponent implements OnInit {
+export class UserRoleListComponent implements OnInit {
 
   Columns: any;
-  UserList: Array<user>;
-  loading : boolean = true;
+  UserRoleList: any;
   constructor(
     private commonservice: CommonService,
     private _dialogService: DialogService,
-    private helper: CommonHelper,
+    private helper: CommonHelper
   ) {
-    this.UserList = new Array<user>();
   }
 
   ngOnInit() {
     this.GetList();
     this.Columns = [
-      { field: 'user_name', header: 'User Name' },
-      // { field: 'landing_page', header: 'Landing Page' },
+      { field: 'name', header: 'Name' },
+      { field: 'landing_page', header: 'Landing Page' },
     ];
   }
 
   GetList() {
-
-    this.commonservice.GetAll("UserList").subscribe((res) => {
-      this.UserList = res;
-
+    this.helper.ShowSpinner();
+    this.commonservice.GetAll("UserRoleList").subscribe((res) => {
+      this.UserRoleList = res;
     }, (error) => {
-      this.loading = false;
+      this.helper.HideSpinner();
       this.helper.ErrorToastr(error, "Error");
     }, () => {
-      this.loading = false;
+      this.helper.HideSpinner();
     });
   }
 
   OpenPopup(Id: number) {
     if (Id == 0) {
-      const ref = this._dialogService.open(PartialUserComponent, {
-        header: 'User - New',
+      const ref = this._dialogService.open(PartialUserRoleComponent, {
+        header: 'UserRole - New',
         width: '50%',
-        data: new user()
+        data: new user_role()
       });
       ref.onClose.subscribe((res) => {
         if (res) {
@@ -60,9 +57,9 @@ export class UserListComponent implements OnInit {
     }
     else {
       this.helper.ShowSpinner();
-      this.commonservice.GetById(Id, "UserById").subscribe((res) => {
-        const ref = this._dialogService.open(PartialUserComponent, {
-          header: 'User - Edit',
+      this.commonservice.GetById(Id, "UserRoleById").subscribe((res) => {
+        const ref = this._dialogService.open(PartialUserRoleComponent, {
+          header: 'User Role - Edit',
           width: '50%',
           data: res
         });
@@ -81,4 +78,3 @@ export class UserListComponent implements OnInit {
   }
 
 }
-

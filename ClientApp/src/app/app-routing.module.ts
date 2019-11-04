@@ -14,7 +14,8 @@ const appRoutes: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'Logout/:Id', component: LogoutComponent },
   { path: 'Admin/Dashboard', component: MainComponent, canActivate: [AuthGuard], loadChildren: () => import('./Admin/dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: 'Admin/UserList', component: MainComponent, canActivate: [AuthGuard], loadChildren: () => import('./Admin/User/user-list/user-list.module').then(m => m.UserListModule) }
+  { path: 'Admin/UserList', component: MainComponent, canActivate: [AuthGuard], loadChildren: () => import('./Admin/User/user-list/user-list.module').then(m => m.UserListModule) },
+  { path: 'Admin/UserRoleList', component: MainComponent, canActivate: [AuthGuard], loadChildren: () => import('./Admin/UserRole/user_role-list/user_role-list.module').then(m => m.UserRoleListModule) }
 ];
 
 

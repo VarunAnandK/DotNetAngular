@@ -8,7 +8,7 @@ import { CommonHelper } from './CommonHelper';
 export class AlphaInterceptor implements HttpInterceptor {
   constructor(private helper : CommonHelper) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var token = "Bearer " + this.helper.GetCurentUser().Token;
+    var token = "Bearer " + this.helper.GetCurentUser().token;
     request = request.clone({
       setHeaders: {
         Authorization: `${token}`

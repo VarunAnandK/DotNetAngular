@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiResponseModel } from 'src/Helper/api-response-model';
 import { user } from 'src/Model/user';
 import { CommonHelper } from 'src/Helper/CommonHelper';
@@ -10,7 +10,7 @@ import { CommonService } from 'src/Service/Common.service';
 @Component({
   selector: 'app-partial-user',
   templateUrl: './partial-user.component.html',
-  styleUrls: ['./partial-user.component.css']
+  styleUrls: ['./partial-user.component.scss']
 })
 export class PartialUserComponent implements OnInit {
 
@@ -28,49 +28,85 @@ export class PartialUserComponent implements OnInit {
   }
   ngOnInit() {
     this.UserForm = this.formbuilder.group({
-      UserName: new FormControl('', Validators.compose([
+      user_name: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      Password: new FormControl('', Validators.compose([
+      user_role_id: new FormControl('', Validators.compose([
         Validators.required
       ])),
-      Email: new FormControl('', Validators.compose([
+      password: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.email
       ])),
     });
+    this.UserRoledropdownList();
   }
   UserValidationMessages = {
-    'UserName': [
+    'user_role_id': [
+      { type: 'required', message: 'User Role is required.' },
+    ],
+    'user_name': [
       { type: 'required', message: 'User Name is required.' },
     ],
-    'Password': [
+    'password': [
       { type: 'required', message: 'Password is required.' },
     ],
-    'Email': [
+    'email': [
       { type: 'required', message: 'Email is required.' },
-      { type: 'email', message: 'Correct email format.' },
-    ],
+      { type: 'email', message: 'Enter correct format of email' },
+    ]
   };
 
   CreateOrUpdate() {
+
     this.helper.ShowSpinner();
     this.commonservice.InsertOrUpdate(this.UserData, "User").subscribe(
       (res: ApiResponseModel) => {
+        if (res.Type == "S") {
           this.helper.SucessToastr(res.Message, "User");
           this.ref.close(true);
+        } else {
+          this.helper.ErrorToastr(res.Message, "User");
+        }
       },
       error => {
         this.helper.HideSpinner();
-        this.helper.ErrorToastr(error, "User");
+        this.helper.ErrorToastr(error, "Error");
       },
       () => {
         this.helper.HideSpinner();
       }
     );
   }
-  ngOnDestroy()
-  {
-    this.ref.close();
+
+  UserRoledropdownList() {
+
+    let Id = 0;
+    this.UserRoledropdown = [];
+    this.commonservice.GetAll("UserRoleList").subscribe(
+      (res) => {
+        res.forEach(element => {
+          this.UserRoledropdown.push({ label: element.name, value: element.id });
+          if (Id == 0) {
+            Id = element.id;
+          }
+        });
+      },
+      error => {
+        //this.helper.HideSpinner();
+      },
+      () => {
+        if (this.UserData.id == 0)
+          this.UserData.user_role_id = Id;
+        this.UserForm.patchValue(this.UserData);
+        //this.helper.HideSpinner();
+      }
+    );
   }
+
+
+
 }

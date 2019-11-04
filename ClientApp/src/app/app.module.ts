@@ -10,8 +10,6 @@ import { MainComponent } from './main/main.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { AppRoutingModule } from './app-routing.module';
-//import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { LabelModule } from './Shared/label/label.module';
@@ -22,7 +20,6 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { AlphaInterceptor } from 'src/Helper/http.interceptor';
 import { CommonHelper } from 'src/Helper/CommonHelper';
 import { DynamicDialogRef, ConfirmationService, MessageService } from 'primeng/api';
-import { CookieService } from 'ngx-cookie-service';
 import {ToastModule} from 'primeng/toast';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
@@ -42,8 +39,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     RouterModule.forRoot([
     ]),
     AppRoutingModule,
-    //ToastrModule.forRoot(),
-    NgxSpinnerModule,
     PanelModule,
     DynamicDialogModule,
     LabelModule,
@@ -64,7 +59,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     CommonHelper,
     DynamicDialogRef,
     ConfirmationService,
-    CookieService,
     MessageService
   ],
   bootstrap: [AppComponent]

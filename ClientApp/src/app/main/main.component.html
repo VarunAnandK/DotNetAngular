@@ -62,7 +62,7 @@
                                         <div class="bg-warning px-4 py-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="mr-1">
-                                                    <h4 class="text-white mb-0">{{helper.GetCurentUser().UserName}}</h4>
+                                                    <h4 class="text-white mb-0">{{helper.GetCurentUser().user_name}}</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                             <a class="dropdown-item d-flex nav-link" (click)="ChangePasswordPopup()">
                                                 <i class="fa fa-unlock-alt pr-2 text-primary"></i> Change password
                                             </a>
-                                            <a class="dropdown-item d-flex nav-link" [routerLink]="['/Logout/' +this.helper.GetCurentUser().Id]">
+                                            <a class="dropdown-item d-flex nav-link" [routerLink]="['/Logout']">
                                                 <i class="fa fa-sign-out pr-2 text-info"></i> Logout
                                             </a>
                                         </div>
@@ -166,6 +166,6 @@
 </div>
 
 <p-toast></p-toast>
-<div class="loading-indicator" *ngIf="this.helper.HideShowSpinner">
+<div class="loading-indicator" *ngIf="this.helper?.HideShowSpinner">
     <p-progressSpinner></p-progressSpinner>
 </div>

@@ -16,7 +16,7 @@ export class CommonService {
     return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}/${id}`);
   }
   public InsertOrUpdate(model: any, UrlName: string) {
-    if (model.Id == 0) {
+    if (model.id == 0) {
       model.created_by_id = this.helper.GetUserId();
       return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Insert`, model);
     }

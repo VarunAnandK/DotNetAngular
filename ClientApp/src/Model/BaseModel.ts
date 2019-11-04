@@ -1,9 +1,8 @@
 export class BaseModel {
-  Id: number = 0;
-  Status: boolean = true;
-  CreatedBy: number;
-  CreatedDate: Date;
-  UpdatedBy: number;
-  UpdatedDate: Date;
-  CompanyId: number;
+  id: number = 0;
+  status: boolean = true;
+  created_by_id: number;
+  created_on: Date;
+  updated_by_id: number;
+  updated_on: Date;
 }

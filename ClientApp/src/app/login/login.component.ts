@@ -30,11 +30,18 @@ export class LoginComponent implements OnInit {
     this.helper.ShowSpinner();
     this.commonservice.CommonPost(this.User, "Authenticate").subscribe(
       (res: ApiResponseModel) => {
-        this.helper.SucessToastr(res.Message, "Login");
-        this.helper.Authenticate(res.AdditionalData);
-        this.router.navigate(["/Admin/Dashboard"]);
+        if(res.Type == "S")
+        {
+          this.helper.SucessToastr(res.Message, "Login");
+          this.helper.Authenticate(res.AdditionalData);
+          this.router.navigate(["/Admin/Dashboard"]);
+        }
+        else{
+          this.helper.ErrorToastr(res.Message, "Login");
+        }
       },
       error => {
+        debugger
         this.helper.HideSpinner();
         this.helper.ErrorToastr(error, "Error");
       },

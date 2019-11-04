@@ -34,7 +34,7 @@ namespace Alpha.Database
         {
             this._applicationcontext.Set<T>().Add(entity);
             this._applicationcontext.SaveChanges();
-            return entity.Id;
+            return entity.id;
         }
         public void Update<T>(T entity) where T : BaseEntity
         {
