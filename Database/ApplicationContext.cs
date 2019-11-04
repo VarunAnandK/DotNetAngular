@@ -1,6 +1,10 @@
 ﻿using Alpha.Database.Mapping;
+using Alpha.Database.Tables;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -26,5 +30,10 @@ namespace Alpha.Database
             }
             base.OnModelCreating(modelBuilder);
         }
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
     }
 }

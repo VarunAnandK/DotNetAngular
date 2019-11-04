@@ -4,14 +4,16 @@ using Alpha.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Alpha.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20191104150037_s2")]
+    partial class s2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace Alpha.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("action")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("column")
                         .HasColumnType("nvarchar(max)");
@@ -47,9 +46,6 @@ namespace Alpha.Migrations
                     b.Property<string>("old_value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("primary_key")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("status")
                         .HasColumnType("bit");
 
@@ -61,9 +57,6 @@ namespace Alpha.Migrations
 
                     b.Property<DateTime?>("updated_on")
                         .HasColumnType("datetime2");
-
-                    b.Property<long>("user_id")
-                        .HasColumnType("bigint");
 
                     b.HasKey("id");
 
@@ -121,7 +114,7 @@ namespace Alpha.Migrations
                         {
                             id = 1L,
                             created_by_id = 0L,
-                            created_on = new DateTime(2019, 11, 4, 21, 15, 55, 758, DateTimeKind.Local).AddTicks(2164),
+                            created_on = new DateTime(2019, 11, 4, 20, 45, 36, 736, DateTimeKind.Local).AddTicks(4383),
                             email = "sadmin@gmail.com",
                             password = "123",
                             status = true,
@@ -168,7 +161,7 @@ namespace Alpha.Migrations
                         {
                             id = 1L,
                             created_by_id = 0L,
-                            created_on = new DateTime(2019, 11, 4, 21, 15, 55, 782, DateTimeKind.Local).AddTicks(9181),
+                            created_on = new DateTime(2019, 11, 4, 20, 45, 36, 758, DateTimeKind.Local).AddTicks(3466),
                             landing_page = "/Admin/Dashboard",
                             name = "Super Admin",
                             status = true
