@@ -7,12 +7,12 @@ import { ApiResponseModel } from 'src/Helper/api-response-model';
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.scss']
+  styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
   UserId: any;
 
-  constructor(private helper : CommonHelper,private _activeRoute : ActivatedRoute,private route : Router,private commonservice: CommonService) { }
+  constructor(private helper: CommonHelper, private _activeRoute: ActivatedRoute, private route: Router, private commonservice: CommonService) { }
 
   ngOnInit() {
 
@@ -22,30 +22,6 @@ export class LogoutComponent implements OnInit {
   }
 
   ValidateLogout() {
-
-    this.helper.ShowSpinner();
-    //this.UserId = this.helper.GetCurentUser().id;
-    // let params: any;
-    // params = [
-    //   { params: this.helper.GetCurentUser().id }
-    // ];
-    this.commonservice
-    .GetById(this.UserId , "ValidateLogout")
-    .subscribe(
-      (res: ApiResponseModel) => {
-      if (res.Type == "S") {
-        this.helper.SucessToastr(res.Message, "Logout");
-        this.helper.DeleteAllLocalStorage();
-        this.route.navigate(["/Login"]);
-      }
-      else {
-        this.helper.ErrorToastr(res.Message, "Logout");
-      }
-    }, (error) => {
-      this.helper.ErrorToastr(error, "Error");
-      this.helper.HideSpinner();
-    }, () => {
-      this.helper.HideSpinner();
-    });
+    this.helper.Logout();
   }
 }

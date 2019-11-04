@@ -9,13 +9,13 @@ import { ConfirmationService } from "primeng/api";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   User: user;
   constructor(
     private router: Router,
-    private helper: CommonHelper,
+    public helper: CommonHelper,
     private commonservice: CommonService,
     private confirmationService: ConfirmationService
   ) {
@@ -31,10 +31,7 @@ export class LoginComponent implements OnInit {
     this.commonservice.CommonPost(this.User, "Authenticate").subscribe(
       (res: ApiResponseModel) => {
         this.helper.SucessToastr(res.Message, "Login");
-        this.helper.SetLocalStorage(
-          this.helper.StorageName,
-          res.AdditionalData
-        );
+        this.helper.Authenticate(res.AdditionalData);
         this.router.navigate(["/Admin/Dashboard"]);
       },
       error => {

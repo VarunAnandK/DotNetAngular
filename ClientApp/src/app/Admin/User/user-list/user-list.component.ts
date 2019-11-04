@@ -8,14 +8,14 @@ import { PartialUserComponent } from '../partial-user/partial-user.component';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  styleUrls: ['./user-list.component.css'],
   providers: [DialogService]
 })
 export class UserListComponent implements OnInit {
 
   Columns: any;
   UserList: Array<user>;
-  loading : boolean = true;
+  loading: boolean = true;
   constructor(
     private commonservice: CommonService,
     private _dialogService: DialogService,
@@ -32,7 +32,6 @@ export class UserListComponent implements OnInit {
   }
 
   GetList() {
-
     this.commonservice.GetAll("UserList").subscribe((res) => {
       this.UserList = res;
     }, (error) => {

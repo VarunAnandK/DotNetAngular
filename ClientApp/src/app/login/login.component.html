@@ -45,5 +45,7 @@
 
     </div>
 </div>
-<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-</ngx-spinner>
+<p-toast></p-toast>
+<div class="loading-indicator" *ngIf="this.helper.HideShowSpinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>

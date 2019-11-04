@@ -10,7 +10,7 @@ import { MainComponent } from './main/main.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ToastrModule } from 'ngx-toastr';
+//import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -21,8 +21,10 @@ import { ButtonModule } from 'primeng/button';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { AlphaInterceptor } from 'src/Helper/http.interceptor';
 import { CommonHelper } from 'src/Helper/CommonHelper';
-import { DynamicDialogRef, ConfirmationService } from 'primeng/api';
+import { DynamicDialogRef, ConfirmationService, MessageService } from 'primeng/api';
 import { CookieService } from 'ngx-cookie-service';
+import {ToastModule} from 'primeng/toast';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import { CookieService } from 'ngx-cookie-service';
     RouterModule.forRoot([
     ]),
     AppRoutingModule,
-    ToastrModule.forRoot(),
+    //ToastrModule.forRoot(),
     NgxSpinnerModule,
     PanelModule,
     DynamicDialogModule,
@@ -50,6 +52,8 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     ButtonModule,
     ConfirmDialogModule,
+    ToastModule,
+    ProgressSpinnerModule
   ],
   providers: [
     {
@@ -60,7 +64,8 @@ import { CookieService } from 'ngx-cookie-service';
     CommonHelper,
     DynamicDialogRef,
     ConfirmationService,
-    CookieService
+    CookieService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

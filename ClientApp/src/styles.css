@@ -1,16 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+    /* You can add global styles to this file, and also import other style files */
+    /* @import '~ngx-toastr/toastr'; */
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
+    .sidebar {
+        height: 100% !important;
+    }
 
-code {
-  color: #e01a76;
-}
+    .ui-toast {
+        z-index: 1061 !important;
+    }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
+    .ui-dynamicdialog {
+        z-index: 10000 !important;
+    }
+
+    body .ui-dialog .ui-dialog-content {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .ui-table .ui-table-tbody>tr>td {
+        word-wrap: break-word;
+    }
+
+    .ui-datepicker {
+        z-index: 10000 !important;
+    }
+
+     :host ::ng-deep .ui-table .ui-table-thead>tr>th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 70px;
+    }
+
+    @media screen and (max-width: 64em) {
+         :host ::ng-deep .ui-table .ui-table-thead>tr>th {
+            top: 100px;
+        }
+    }
+
+    body .ui-table .ui-table-thead>tr>th {
+        word-wrap: break-word;
+    }
+
+    .vl {
+        border-left: 1px solid black;
+    }
+
+    .loading-indicator {
+        position: fixed;
+        z-index: 99999;
+        height: 2em;
+        width: 2em;
+        overflow: show;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+    /* Transparent Overlay */
+
+    .loading-indicator:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.53);
+    }
+
+    .ui-widget-overlay {
+        z-index: 1061 !important;
+    }

@@ -17,6 +17,8 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { TabViewModule } from "primeng/tabview";
 import { DataViewModule } from "primeng/dataview";
 import { AutoCompleteModule } from "primeng/autocomplete";
+import {FieldsetModule} from 'primeng/fieldset';
+
 export const ModuleData = [
   TableModule,
   ButtonModule,
@@ -38,5 +40,6 @@ export const ModuleData = [
   MultiSelectModule,
   TabViewModule,
   DataViewModule,
-  AutoCompleteModule
+  AutoCompleteModule,
+  FieldsetModule
 ];

@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ToastrService } from "ngx-toastr";
+//import { ToastrService } from "ngx-toastr";
 import { environment } from "src/environments/environment";
 import { user } from "src/Model/user";
 import { CookieService } from "ngx-cookie-service";
+import {MessageService} from 'primeng/api';
 @Injectable()
 export class CommonHelper {
   constructor(
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
-    private _cookieService: CookieService
+    //private toastr: ToastrService,
+    private _cookieService: CookieService,
+    private messageService: MessageService
   ) {
     this.ApiURL = environment.API_URL;
     this.StorageName = "AESERPUserDetail";
@@ -18,6 +20,7 @@ export class CommonHelper {
   StorageName: string;
   CurrentModule: string;
   CurrentPage: string[];
+  HideShowSpinner : boolean;
 
   GetUserId(): number {
     let user = JSON.parse(window.localStorage.getItem(this.StorageName));
@@ -55,6 +58,7 @@ export class CommonHelper {
     }
     return User;
   }
+
   SetLocalStorage(name: string, data: any, jsonformat: boolean = true) {
     if (jsonformat) {
       window.localStorage.setItem(name, JSON.stringify(data));
@@ -62,28 +66,36 @@ export class CommonHelper {
       window.localStorage.setItem(name, data);
     }
   }
+
   GetLocalStorage(name: string, jsonformat: boolean = false) {
     if (jsonformat) return JSON.parse(window.localStorage.getItem(name));
     else return window.localStorage.getItem(name);
   }
+
   DeleteAllLocalStorage() {
     return window.localStorage.clear();
   }
+
   DeleteLocalStorage(name: string) {
     return window.localStorage.removeItem(name);
   }
+
   SucessToastr(message: string, title: string) {
-    this.toastr.success(message, title);
+    this.messageService.add({severity:'success', summary: title, detail: message});
   }
+
   ErrorToastr(message: string, title: string) {
-    this.toastr.error(message, title);
+    this.messageService.add({severity:'error', summary: title, detail: message});
   }
+
   ShowSpinner() {
-    this.spinner.show();
+    this.HideShowSpinner = true;
   }
+
   HideSpinner() {
-    this.spinner.hide();
+    this.HideShowSpinner = false;
   }
+
   NullOrEmpty(data) {
     if (data == null) return true;
     else if (data == undefined) return true;
@@ -91,4 +103,16 @@ export class CommonHelper {
     else if (data == "") return true;
     else return false;
   }
+
+  Authenticate(Model: any) {
+    this.SetLocalStorage(
+      this.StorageName,
+      Model
+    );
+  }
+
+  Logout() {
+    this.DeleteAllLocalStorage();
+  }
+
 }

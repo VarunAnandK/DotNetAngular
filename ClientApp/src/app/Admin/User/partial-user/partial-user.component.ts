@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiResponseModel } from 'src/Helper/api-response-model';
 import { user } from 'src/Model/user';
 import { CommonHelper } from 'src/Helper/CommonHelper';
@@ -10,7 +10,7 @@ import { CommonService } from 'src/Service/Common.service';
 @Component({
   selector: 'app-partial-user',
   templateUrl: './partial-user.component.html',
-  styleUrls: ['./partial-user.component.scss']
+  styleUrls: ['./partial-user.component.css']
 })
 export class PartialUserComponent implements OnInit {
 
@@ -69,8 +69,8 @@ export class PartialUserComponent implements OnInit {
       }
     );
   }
-
-
-
-
+  ngOnDestroy()
+  {
+    this.ref.close();
+  }
 }
