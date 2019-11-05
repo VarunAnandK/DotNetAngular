@@ -28,7 +28,7 @@ namespace Alpha.Controllers
         [HttpGet]
         public IActionResult UserList()
         {
-            var userdata = this._repository.GetAll<user>().ToList();
+            var userdata = this._repository.GetAll<user>(o=>o.user_role).ToList();
             return Ok(userdata);
         }
         [HttpGet]

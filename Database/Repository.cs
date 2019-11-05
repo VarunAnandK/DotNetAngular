@@ -18,17 +18,28 @@ namespace Alpha.Database
         {
             this._applicationcontext = applicationcontext;
         }
-        public IQueryable<T> GetAll<T>() where T : BaseEntity
+        public List<T> GetAll<T>(params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().AsNoTracking();
+
+            IQueryable<T> entitiesdata = this._applicationcontext.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                entitiesdata = entitiesdata.Include(includeProperty);
+            }
+            return entitiesdata.AsNoTracking().ToList();
         }
-        public T GetById<T>(long Id) where T : BaseEntity
+        public T GetById<T>(long Id, params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().Find(Id);
+            IQueryable<T> entitiesdata = this._applicationcontext.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                entitiesdata = entitiesdata.Include(includeProperty);
+            }
+            return entitiesdata.AsNoTracking().SingleOrDefault(e => e.id == Id);
         }
-        public IQueryable<T> GetByCondition<T>(Expression<Func<T, bool>> expression) where T : BaseEntity
+        public List<T> GetByCondition<T>(Expression<Func<T, bool>> expression) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().Where(expression).AsNoTracking();
+            return this._applicationcontext.Set<T>().Where(expression).AsNoTracking().ToList();
         }
         public long Insert<T>(T entity) where T : BaseEntity
         {
@@ -74,6 +85,6 @@ namespace Alpha.Database
             else
                 return true;
         }
-        
+
     }
 }
