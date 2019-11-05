@@ -18,6 +18,7 @@ import { TabViewModule } from "primeng/tabview";
 import { DataViewModule } from "primeng/dataview";
 import { AutoCompleteModule } from "primeng/autocomplete";
 import {FieldsetModule} from 'primeng/fieldset';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 export const ModuleData = [
   TableModule,
@@ -41,5 +42,6 @@ export const ModuleData = [
   TabViewModule,
   DataViewModule,
   AutoCompleteModule,
-  FieldsetModule
+  FieldsetModule,
+  ConfirmDialogModule
 ];

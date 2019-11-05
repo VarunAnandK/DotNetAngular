@@ -14,7 +14,7 @@
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
                 </th>
-                <th style="width: 5%;">Edit</th>
+                <th style="width: 6%;">Edit</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns ">
@@ -23,7 +23,7 @@
                     {{rowData | GetArrayValue : col}}
                 </td>
                 <td>
-            <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="OpenPopup(rowData.id)"></button>
+                    <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" (click)="OpenPopup(rowData.id)"></button>
                 </td>
             </tr>
         </ng-template>

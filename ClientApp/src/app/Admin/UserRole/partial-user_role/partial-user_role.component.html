@@ -22,10 +22,11 @@
 <p-footer>
     <div class="ui-grid-row">
         <div class="ui-grid-col-12">
-            <button pButton type="button" *ngIf="UserRoleData.id > 0"  style="width: 100px;margin-right: 10px;float: right;" label="Delete" (click)="Delete()" class="ui-button-danger pull-right"></button>
+            <button pButton type="button" *ngIf="UserRoleData.id > 0" style="width: 100px;margin-right: 10px;float: right;" label="Delete" (click)="Delete()" class="ui-button-danger pull-right"></button>
             <button pButton type="button" *ngIf="UserRoleData.id == 0" [disabled]="UserRoleForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Save" (click)="CreateOrUpdate()" class="ui-button-success pull-right"></button>
             <button pButton type="button" *ngIf="UserRoleData.id > 0" [disabled]="UserRoleForm.invalid" style="width: 100px;margin-right: 10px;float: right;" label="Update" (click)="CreateOrUpdate()" class="ui-button-success pull-right"></button>
-
         </div>
     </div>
 </p-footer>
+
+<p-confirmDialog [style]="{width: '30vw'}"></p-confirmDialog>

@@ -6,7 +6,6 @@ import { PartialUserComponent } from '../partial-user/partial-user.component';
 import { ModuleData} from 'src/Helper/Modules';
 import { PartialUserModule } from '../partial-user/partial-user.module';
 
-
 @NgModule({
   declarations: [UserListComponent],
   imports: [
