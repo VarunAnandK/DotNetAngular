@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Alpha.Database
@@ -18,22 +19,34 @@ namespace Alpha.Database
         {
             this._applicationcontext = applicationcontext;
         }
-        public IQueryable<T> GetAll<T>() where T : BaseEntity
+        public List<T> GetAll<T>(params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().AsNoTracking();
+
+            IQueryable<T> entitiesdata = this._applicationcontext.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                entitiesdata = entitiesdata.Include(includeProperty);
+            }
+            return entitiesdata.AsNoTracking().ToList();
         }
-        public T GetById<T>(long Id) where T : BaseEntity
+        public T GetById<T>(long Id, params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().Find(Id);
+            IQueryable<T> entitiesdata = this._applicationcontext.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                entitiesdata = entitiesdata.Include(includeProperty);
+            }
+            return entitiesdata.AsNoTracking().SingleOrDefault(e => e.id == Id);
         }
-        public IQueryable<T> GetByCondition<T>(Expression<Func<T, bool>> expression) where T : BaseEntity
+        public List<T> GetByCondition<T>(Expression<Func<T, bool>> expression) where T : BaseEntity
         {
-            return this._applicationcontext.Set<T>().Where(expression).AsNoTracking();
+            return this._applicationcontext.Set<T>().Where(expression).AsNoTracking().ToList();
         }
         public long Insert<T>(T entity) where T : BaseEntity
         {
             this._applicationcontext.Set<T>().Add(entity);
             this._applicationcontext.SaveChanges();
+            //  AuditTrail(entity,"Insert");
             return entity.id;
         }
         public void Update<T>(T entity) where T : BaseEntity
@@ -74,6 +87,42 @@ namespace Alpha.Database
             else
                 return true;
         }
-        
+
+        public void AuditTrail<T>(T entry, string auditactions)
+        {
+            Type types = entry.GetType();
+            List<audit_trail> Dataslist = new List<audit_trail>();
+            audit_trail audit = new audit_trail();
+            audit.date = DateTime.Now;
+            audit.table = entry.GetType().Name.Replace('_', ' ');
+            audit.user_id = 0;
+            List<string> extracolumn = new List<string>();
+            extracolumn.Add("created_by_id");
+            extracolumn.Add("created_on");
+            extracolumn.Add("updated_by_id");
+            extracolumn.Add("updated_on");
+            if (auditactions == "Insert")
+            {
+                foreach (PropertyInfo property in types.GetProperties())
+                {
+                    if (!extracolumn.Contains(property.Name))
+                    {
+                        string newValue = string.Empty;
+                        if (types.GetProperty(property.Name).GetValue(entry, null) != null)
+                        {
+                            if (!types.GetProperty(property.Name).GetValue(entry, null).ToString().Contains("System.Collections.Generic.List"))
+                                newValue = types.GetProperty(property.Name).GetValue(entry, null).ToString();
+                        }
+                        else
+                        {
+                            newValue = string.Empty;
+                        }
+                        Dataslist.Add(new audit_trail() { action = auditactions, column_name = property.Name, new_value = newValue, old_value = "" });
+                    }
+                }
+            }
+            this._applicationcontext.Set<audit_trail>().AddRange(Dataslist);
+            this._applicationcontext.SaveChanges();
+        }
     }
 }

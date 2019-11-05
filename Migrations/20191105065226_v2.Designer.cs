@@ -4,14 +4,16 @@ using Alpha.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Alpha.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20191105065226_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +43,10 @@ namespace Alpha.Migrations
                     b.Property<DateTime>("date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("key_values")
+                    b.Property<string>("new_value")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("new_value")
+                    b.Property<string>("old_value")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("status")
@@ -65,52 +67,6 @@ namespace Alpha.Migrations
                     b.HasKey("id");
 
                     b.ToTable("audit_trail");
-                });
-
-            modelBuilder.Entity("Alpha.Database.Tables.country", b =>
-                {
-                    b.Property<long>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("created_by_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("created_on")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("status")
-                        .HasColumnType("bit");
-
-                    b.Property<long?>("updated_by_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("updated_on")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.ToTable("country");
-
-                    b.HasData(
-                        new
-                        {
-                            id = 1L,
-                            code = "IN",
-                            created_by_id = 0L,
-                            created_on = new DateTime(2019, 11, 5, 16, 22, 16, 692, DateTimeKind.Local).AddTicks(2359),
-                            name = "India",
-                            status = true
-                        });
                 });
 
             modelBuilder.Entity("Alpha.Database.Tables.user", b =>
