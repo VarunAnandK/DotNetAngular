@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Alpha.Database
@@ -45,6 +46,7 @@ namespace Alpha.Database
         {
             this._applicationcontext.Set<T>().Add(entity);
             this._applicationcontext.SaveChanges();
+            //  AuditTrail(entity,"Insert");
             return entity.id;
         }
         public void Update<T>(T entity) where T : BaseEntity
@@ -86,5 +88,41 @@ namespace Alpha.Database
                 return true;
         }
 
+        public void AuditTrail<T>(T entry, string auditactions)
+        {
+            Type types = entry.GetType();
+            List<audit_trail> Dataslist = new List<audit_trail>();
+            audit_trail audit = new audit_trail();
+            audit.date = DateTime.Now;
+            audit.table = entry.GetType().Name.Replace('_', ' ');
+            audit.user_id = 0;
+            List<string> extracolumn = new List<string>();
+            extracolumn.Add("created_by_id");
+            extracolumn.Add("created_on");
+            extracolumn.Add("updated_by_id");
+            extracolumn.Add("updated_on");
+            if (auditactions == "Insert")
+            {
+                foreach (PropertyInfo property in types.GetProperties())
+                {
+                    if (!extracolumn.Contains(property.Name))
+                    {
+                        string newValue = string.Empty;
+                        if (types.GetProperty(property.Name).GetValue(entry, null) != null)
+                        {
+                            if (!types.GetProperty(property.Name).GetValue(entry, null).ToString().Contains("System.Collections.Generic.List"))
+                                newValue = types.GetProperty(property.Name).GetValue(entry, null).ToString();
+                        }
+                        else
+                        {
+                            newValue = string.Empty;
+                        }
+                        Dataslist.Add(new audit_trail() { action = auditactions, column_name = property.Name, new_value = newValue, old_value = "" });
+                    }
+                }
+            }
+            this._applicationcontext.Set<audit_trail>().AddRange(Dataslist);
+            this._applicationcontext.SaveChanges();
+        }
     }
 }

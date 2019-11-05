@@ -12,12 +12,13 @@ namespace Alpha.Database
     public interface IRepository
     {
         List<T> GetAll<T>(params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity;
-        T GetById<T>(long Id,params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity;
+        T GetById<T>(long Id, params Expression<Func<T, object>>[] includeProperties) where T : BaseEntity;
         List<T> GetByCondition<T>(Expression<Func<T, bool>> expression) where T : BaseEntity;
         long Insert<T>(T entity) where T : BaseEntity;
         void Update<T>(T entity) where T : BaseEntity;
         void Delete<T>(long Id) where T : BaseEntity;
         DataTable DBSelect(string query);
         bool DBCommands(string query);
+        void AuditTrail<T>(T entry, string auditactions);
     }
 }
