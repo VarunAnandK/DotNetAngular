@@ -1,51 +1,37 @@
-<br/>
-<br/>
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-
-        <div class="login-box">
-            <div class="login-logo">
-                <img src="assets/img/logo.png" class="img-fluid logo-desktop" alt="logo" style="height: 155px" />
-            </div>
-            <div class="card">
-                <div class="card-body login-card-body">
-                    <p class="login-box-msg">Sign in</p>
-                    <form>
-                        <div class="input-group mb-3">
-                            <input pInputText class="form-control" name="name" type="text" [(ngModel)]="User.user_name" placeholder="User Name" />
-                            <div class="input-group-append input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
+<div class="account-pages mt-5 mb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-pattern">
+                    <div class="card-body p-4">
+                        <div class="text-center w-75 m-auto">
+                            <a>
+                                <span><img src="assets/images/umar_logo.png" alt="" height="100"></span>
+                            </a>
                         </div>
-                        <div class="input-group mb-3">
-                            <input pInputText class="form-control" name="name" type="password" [(ngModel)]="User.password" placeholder="password" />
-                            <div class="input-group-append input-group-text">
-                                <span class="fas fa-lock"></span>
+                        <form [formGroup]="UserForm">
+                            <div class="form-group mb-3">
+                                <app-label LabelText="User Name" Required="true"></app-label>
+                                <input pInputText class="form-control" name="user_name" type="text" [(ngModel)]="UserData.user_name" placeholder="User Name" formControlName="user_name" />
+                                <app-validation-message propertyName="user_name" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat" (click)="ValidateLogin()">Sign In</button>
+                            <div class="form-group mb-3">
+                                <app-label LabelText="Password" Required="true"></app-label>
+                                <input pInputText class="form-control" formControlName="password" name="password" type="password" [(ngModel)]="UserData.password" placeholder="password" />
+                                <app-validation-message propertyName="password" [MessageArray]="UserValidationMessages" [FormGroupName]="UserForm"></app-validation-message>
                             </div>
-                        </div>
-                    </form>
-                    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-                    <br/>
-                    <br/>
-                    <strong><u>Parent Login</u></strong>
-                    <p>
-                        <strong>Username</strong> : Register MobileNo (Ex:98439 89088)
-                        <br/>
-                        <strong>Password</strong> : Student DOB (Ex:22102019)
-                    </p>
+                            <div class="form-group mb-0 text-center">
+                                <button class="btn btn-primary btn-block" [disabled]="UserForm.invalid" (click)="Login()" type="submit"> Log In </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <p> <a class="text-white-50 ml-1" [routerLink]="['/ForgotPassword']">Forgot your password?</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
-<p-toast></p-toast>
-<div class="loading-indicator" *ngIf="this.helper.HideShowSpinner">
-    <p-progressSpinner></p-progressSpinner>
 </div>

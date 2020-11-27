@@ -1,11 +1,7 @@
-<!-- <div class="validation-errors">
+<div class="validation-errors">
     <ng-container *ngFor="let validation of GetMessageArray()">
         <div class="error-message" *ngIf="CheckValidation(validation)">
             {{ validation.message }}
         </div>
     </ng-container>
 </div>
- -->
-<ng-container *ngFor="let validation of GetMessageArray()">
-    <p-message severity="error" [text]="validation.message" *ngIf="CheckValidation(validation)"></p-message>
-</ng-container>

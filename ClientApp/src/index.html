@@ -3,60 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <title>OXALISS CAFETERIA</title>
+    <title>Alpha</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta name="theme-color" content="#1976d2">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/metismenu.2.7.9.css" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/summernote/summernote-bs4.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <app-root></app-root>
+    <app-root>
+        <div id="spinnerloading" class="spinner_overlay"></div>
+        <img id="spinnerloadingimage" style="display: none;" src="assets/images/loading.gif" class="image">
+    </app-root>
     <noscript>Please enable JavaScript to continue using this application.</noscript>
-    <script src="assets/js/jquery-3.4.1.js"></script>
-    <script src="assets/js/metismenu-2.7.9.js"></script>
-    <script src="assets/js/common.js"></script>
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                function disableBack() {
-                    window.history.forward()
-                }
-
-                window.onload = disableBack();
-                window.onpageshow = function(evt) {
-                    if (evt.persisted) disableBack()
-                }
-            });
-        </script> -->
-    <!-- <script src="assets/js/store.js"></script>
-        <script src="assets/js/jquery-idleTimeout.js"></script>
-        <script>
-        $(document).idleTimeout(
-          {
-
-              redirectUrl: '/Logout',       // redirect to this url
-              // 3 - Mins Idle Time - Start
-              idleTimeLimit: 7200, // 15 seconds 'No activity' time limit in seconds.
-              // 3 - Mins Idle Time - End
-              //---------------------------
-              // 2 - Hrs Idle Time - Start
-              //idleTimeLimit: 7200, // 7200 seconds 'No activity' time limit in seconds.
-              // 2 - Hrs Idle Time - End
-              activityEvents: 'click keypress scroll wheel mousewheel',    // separate each event with a space
-              dialogDisplayLimit: 180,       // Time to display the warning dialog before logout (and optional callback) in seconds
-              sessionKeepAliveTimer: false  // Set to false to disable pings.
-          }); -->
-    </script>
+    <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="assets/libs/summernote/summernote-bs4.min.js"></script>
 </body>
 
 </html>

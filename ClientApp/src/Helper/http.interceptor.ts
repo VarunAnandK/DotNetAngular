@@ -6,25 +6,29 @@ import { CommonHelper } from './CommonHelper';
 
 @Injectable()
 export class AlphaInterceptor implements HttpInterceptor {
-  constructor(private helper : CommonHelper) { }
+  constructor(private helper: CommonHelper) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    var token = "Bearer " + this.helper.GetCurentUser().token;
+
+    var token = this.helper.GetCurentUser().token;
     request = request.clone({
       setHeaders: {
-        Authorization: `${token}`
+        Authorization: `Bearer ${token}`
       }
     });
     return next.handle(request).pipe(
       tap(
         event => {
           if (event instanceof HttpResponse) {
-            //console.log("api call success :", event);
           }
         },
         error => {
-          if (event instanceof HttpResponse) {
-            //console.log("api call error :", event);
-          }
+          // this.helper.redirectTo("Login");
+          // this.helper.ErrorToastr(
+          //   "Your are logout, due to user aleady logged in another system",
+          //   "Multiple user login"
+          // );
+          // this.helper.HideSpinner();
+
         }
       )
     );

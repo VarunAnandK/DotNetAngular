@@ -1,12 +1,10 @@
-import { BaseModel } from '../Model/BaseModel';
-import { user_role } from './user_role';
+import { base_entity } from './base_entity';
 
-export class user extends BaseModel {
+export class user extends base_entity {
+  user_role_id: number;
   user_name: string;
   password: string;
   email: string;
   token: string;
-  user_role_id: number;
-  user_role:user_role;
+  vehicle_id: number;
 }
-

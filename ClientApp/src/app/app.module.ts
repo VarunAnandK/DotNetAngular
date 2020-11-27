@@ -1,56 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
-import { MainComponent } from './main/main.component';
-import { LogoutComponent } from './logout/logout.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PanelModule } from 'primeng/panel';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { LabelModule } from './Shared/label/label.module';
-import { ValidationMessageModule } from './Shared/validation-message/validation-message.module';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import { AlphaInterceptor } from 'src/Helper/http.interceptor';
+import { AppComponent } from './app.component';
+import { LayoutComponent } from './layout/layout.component';
+import { ToastModule } from 'primeng/toast';
 import { CommonHelper } from 'src/Helper/CommonHelper';
-import { DynamicDialogRef, ConfirmationService, MessageService } from 'primeng/api';
-import {ToastModule} from 'primeng/toast';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AlphaInterceptor } from 'src/Helper/http.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LabelModule } from './Shared/label/label.module';
+import { ChangePasswordModule, ChangePasswordComponent } from './changepassword/changepassword.component';
+import { DynamicDialogRef, MessageService } from 'primeng/api';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    MainComponent,
-    LogoutComponent,
-    ChangepasswordComponent
+    LayoutComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
+    BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-    ]),
     AppRoutingModule,
-    PanelModule,
-    DynamicDialogModule,
-    LabelModule,
-    ValidationMessageModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    ConfirmDialogModule,
     ToastModule,
-    ProgressSpinnerModule
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    LabelModule,
+    ChangePasswordModule,
+    DynamicDialogModule,
   ],
   providers: [
+    CommonHelper,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AlphaInterceptor,
@@ -58,9 +39,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     },
     CommonHelper,
     DynamicDialogRef,
-    ConfirmationService,
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ChangePasswordComponent]
 })
 export class AppModule { }

@@ -10,51 +10,50 @@ export class CommonService {
 
   }
   public GetAll(UrlName: string) {
-    return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}`);
+    return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}`).toPromise<any>();
   }
-  public GetById(id: number, UrlName: string) {
-    return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}/${id}`);
+  public GetById(id: any, UrlName: string) {
+    return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}/${id}`).toPromise<any>();
   }
   public InsertOrUpdate(model: any, UrlName: string) {
+    model = this.helper.ConvertDateFormatFromArray(model);
     if (model.id == 0) {
       model.created_by_id = this.helper.GetUserId();
-      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Insert`, model);
+      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Insert`, model).toPromise<any>();
     }
     else {
       model.updated_by_id = this.helper.GetUserId();
-      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Update`, model);
+      return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}Update`, model).toPromise<any>();
     }
   }
   public CommonPost(model: any, UrlName: string) {
-    return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}`, model);
+    model = this.helper.ConvertDateFormatFromArray(model);
+    return this.httpClient.post(`${this.helper.ApiURL}/${UrlName}`, model).toPromise<any>();
   }
 
   public Delete(id: number, UrlName: string) {
-    return this.httpClient.get(`${this.helper.ApiURL}/${UrlName}/${id}`);
+    return this.httpClient.get(`${this.helper.ApiURL}/${UrlName}/${id}`).toPromise<any>();
   }
 
-  public PostWithParameter(model: any, UrlName: string,params : any) {
+  public PostWithParameter(model: any, UrlName: string, params: any) {
+    model = this.helper.ConvertDateFormatFromArray(model);
     let url = `${this.helper.ApiURL}/${UrlName}`;
-    params.forEach(e=>{
+    params.forEach(e => {
       url = url + "/" + e.params;
     });
-    return this.httpClient.post(url,model);
+    return this.httpClient.post(url, model).toPromise<any>();
   }
 
-  public GetWithParameter(UrlName: string,params : any) {
+  public GetWithParameter(UrlName: string, params: any) {
     let url = `${this.helper.ApiURL}/${UrlName}`;
-    params.forEach(e=>{
+    params.forEach(e => {
       url = url + "/" + e.params;
     });
-    return this.httpClient.get<any>(url);
+    return this.httpClient.get<any>(url).toPromise<any>();
   }
 
-  public GetNumber(type: string, UrlName: string) {
-    return this.httpClient.get<number>(`${this.helper.ApiURL}/${UrlName}/${type}`);
-  }
-
-  public GetByValue(id: string, UrlName: string) {
-    return this.httpClient.get<any>(`${this.helper.ApiURL}/${UrlName}/${id}`);
+  public FullUrlGet(UrlName: string) {
+    return this.httpClient.get<any>(UrlName).toPromise<any>();
   }
 }
 

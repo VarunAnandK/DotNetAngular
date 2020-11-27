@@ -1,46 +1,82 @@
-import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { user } from "src/Model/user";
-import {MessageService} from 'primeng/api';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { user } from 'src/Model/user';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { FormGroup, FormControl } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { GroupByPipe } from 'src/Pipe/groupby.pipe';
 @Injectable()
 export class CommonHelper {
-  constructor(
-    private messageService: MessageService
-  ) {
+  constructor(private messageService: MessageService, private router: Router) {
     this.ApiURL = environment.API_URL;
-    this.StorageName = "AESERPUserDetail";
+    this.HideShowSpinner = false;
+    this.StorageName = "AlphaUserData";
   }
   ApiURL: string;
+  channel: any;
   StorageName: string;
   CurrentModule: string;
   CurrentPage: string[];
-  HideShowSpinner : boolean;
-
+  HideShowSpinner: boolean = false;
+  ReloadShareAllotmentTable: boolean = false;
+  ReloadShareAllotmentVoidTable: boolean = false;
+  ReloadShareTransferForm: boolean = false;
+  ReloadShareHolderTable: boolean = false;
   GetUserId(): number {
     let user = JSON.parse(window.localStorage.getItem(this.StorageName));
     if (user == null) {
       return 0;
-    } else {
+    }
+    else {
       return user.id;
     }
   }
+  sortByKey(array, key) {
+    return array.sort(function (a, b) {
+      var x = a[key]; var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+  ObjecToSelectItem(data: any, OptionaLable: string = "name", Optionalvalue: string = "id", ActiveStatus: boolean = true, needfiller: boolean = false) {
+    let datadropdown = [];
+    if (needfiller) {
+      // if (ActiveStatus)
+      //   data = data.filter(o => o.status == true);
+      data.forEach(element => {
+        let dataOptionaLable = OptionaLable.split(".");
+        if (OptionaLable.split(".").length > 1) {
+          datadropdown.push({ label: element[dataOptionaLable[0]][dataOptionaLable[1]], value: element[Optionalvalue], styleClass: JSON.stringify(element), disabled: false });
+        }
+        else {
+          datadropdown.push({ label: element[OptionaLable], value: element[Optionalvalue], styleClass: JSON.stringify(element), disabled: false });
+        }
+      });
+    }
+    else {
+      // if (ActiveStatus)
+      //   data = data.filter(o => o.status == true);
+      data.forEach(element => {
+        let dataOptionaLable = OptionaLable.split(".");
+        if (OptionaLable.split(".").length > 1) {
+          datadropdown.push({ label: element[dataOptionaLable[0]][dataOptionaLable[1]], value: element[Optionalvalue], disabled: false });
+        }
+        else {
+          datadropdown.push({ label: element[OptionaLable], value: element[Optionalvalue], disabled: false });
+        }
+      });
+    }
 
+    return datadropdown;
+  }
   GetCurrentPageAndModule(data: string) {
     this.CurrentPage = [];
     this.CurrentPage.push(data.split("/")[0]);
     this.CurrentPage.push(data.split("/")[1]);
     if (data.split("/")[1].endsWith("List"))
-      this.CurrentPage.push(
-        data.split("/")[1].endsWith("List")
-          ? data.split("/")[1]
-          : data.split("/")[1] + "List"
-      );
+      this.CurrentPage.push(data.split("/")[1].endsWith("List") ? data.split("/")[1] : data.split("/")[1] + "List");
     else if (data.split("/")[2])
-      this.CurrentPage.push(
-        data.split("/")[1].endsWith("List")
-          ? data.split("/")[1]
-          : data.split("/")[1] + "List"
-      );
+      this.CurrentPage.push(data.split("/")[1].endsWith("List") ? data.split("/")[1] : data.split("/")[1] + "List");
   }
 
   GetCurentUser() {
@@ -53,60 +89,243 @@ export class CommonHelper {
     return User;
   }
 
+  GetCurentPermission() {
+    // let Permission: permission[];
+    // Permission = new Array<permission>();
+    // let data = JSON.parse(window.localStorage.getItem("AlphaPermissionData"));
+    // if (data != null) {
+    //   Permission = data;
+    // }
+    return [];
+  }
+
   SetLocalStorage(name: string, data: any, jsonformat: boolean = true) {
     if (jsonformat) {
       window.localStorage.setItem(name, JSON.stringify(data));
-    } else {
+    }
+    else {
       window.localStorage.setItem(name, data);
     }
   }
-
   GetLocalStorage(name: string, jsonformat: boolean = false) {
-    if (jsonformat) return JSON.parse(window.localStorage.getItem(name));
-    else return window.localStorage.getItem(name);
+    if (jsonformat)
+      return JSON.parse(window.localStorage.getItem(name));
+    else
+      return window.localStorage.getItem(name);
   }
-
   DeleteAllLocalStorage() {
+    if (document.getElementsByClassName("ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all").length > 0) {
+      document.getElementsByClassName("ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all")[0].dispatchEvent(new Event("click"));
+    }
     return window.localStorage.clear();
   }
-
   DeleteLocalStorage(name: string) {
     return window.localStorage.removeItem(name);
   }
-
   SucessToastr(message: string, title: string) {
-    this.messageService.add({severity:'success', summary: title, detail: message});
+    this.messageService.add({ severity: 'success', summary: title, detail: message });
   }
-
   ErrorToastr(message: string, title: string) {
-    this.messageService.add({severity:'error', summary: title, detail: message});
+    this.messageService.add({ severity: 'error', summary: title, detail: message });
   }
-
   ShowSpinner() {
-    this.HideShowSpinner = true;
+    //this.HideShowSpinner = true;
+    var x = document.getElementById("spinnerloading");
+    var y = document.getElementById("spinnerloadingimage");
+    x.style.display = "block";
+    y.style.display = "block";
   }
-
   HideSpinner() {
-    this.HideShowSpinner = false;
+    var x = document.getElementById("spinnerloading");
+    var y = document.getElementById("spinnerloadingimage");
+    x.style.display = "none";
+    y.style.display = "none";
+    // this.HideShowSpinner = false;
   }
-
   NullOrEmpty(data) {
-    if (data == null) return true;
-    else if (data == undefined) return true;
-    else if (!isNaN(data)) return true;
-    else if (data == "") return true;
-    else return false;
+    if (data == null)
+      return true;
+    else if (data == undefined)
+      return true;
+    else if (!isNaN(data))
+      return true;
+    else if (data == '')
+      return true;
+    else
+      return false;
+  }
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate([uri]));
   }
 
-  Authenticate(Model: any) {
-    this.SetLocalStorage(
-      this.StorageName,
-      Model
-    );
+  ConvertStringDateFormatFromArray(model: any) {
+    if (model.lenght == undefined) {
+      var data = Object.keys(model);
+      data.filter(o => o.includes('_date') || o.includes('date_') || o.includes('_on') || o.includes('date_of_birth')).filter(o => o != "created_on" && o != "updated_on").forEach(element => {
+        if (model[element] == null) {
+          model[element] = null;
+        }
+        else {
+          model[element] = new Date(model[element]);
+        }
+      });
+      data.filter(o => o.includes('_time')).forEach(element => {
+        if (model[element] == null) {
+          model[element] = null;
+        }
+        else {
+          let dateTime = new Date();
+          let times = model[element].split(':');
+          dateTime.setHours(parseInt(times[0]));
+          dateTime.setMinutes(parseInt(times[1]));
+          dateTime.setSeconds(parseInt(times[2]));
+          model[element] = dateTime;
+        }
+      });
+    }
+    else {
+      model.forEach(modelelement => {
+        var data = Object.keys(modelelement);
+        data.filter(o => o.includes('_date') || o.includes('date_') || o.includes('_on') || o.includes('date_of_birth')).filter(o => o != "created_on" && o != "updated_on").forEach(element => {
+          if (modelelement[element] == null) {
+            modelelement[element] = null;
+          }
+          else {
+            modelelement[element] = new Date(modelelement[element]);
+          }
+        });
+        data.filter(o => o.includes('_time')).forEach(element => {
+          if (modelelement[element] == null) {
+            modelelement[element] = null;
+          }
+          else {
+            let dateTime = new Date();
+            let times = modelelement[element].split(':');
+            dateTime.setHours(parseInt(times[0]));
+            dateTime.setMinutes(parseInt(times[1]));
+            dateTime.setSeconds(parseInt(times[2]));
+            modelelement[element] = dateTime;
+          }
+        });
+      });
+    }
+    return model;
   }
 
-  Logout() {
-    this.DeleteAllLocalStorage();
+
+
+  ConvertDateFormatFromArray(model: any) {
+    if (model.length == undefined) {
+      model = Object.assign({}, model);
+    }
+    else {
+      model = Object.assign([], model);
+    }
+    let datepipe: DatePipe = new DatePipe('en-US');
+    if (model.length == undefined) {
+      var data = Object.keys(model);
+      data.filter(o => o.includes('_date') || o.includes('date_') || o.includes('date_of_birth') || o.includes('_on') && o != "created_on" && o != "updated_on").forEach(element => {
+        if (model[element] == null) {
+          model[element] = null;
+        }
+        else {
+          model[element] = datepipe.transform(model[element], 'yyyy-MM-dd').toString();
+        }
+      });
+
+      data.filter(o => o.includes('_time')).forEach(element => {
+        if (model[element] == null) {
+          model[element] = null;
+        }
+        else {
+          model[element] = datepipe.transform(model[element], 'H:mm:ss').toString();
+        }
+      });
+    }
+    else {
+      model.forEach(modelelement => {
+        var data = Object.keys(modelelement);
+        data.filter(o => o.includes('_date') || o.includes('date_') || o.includes('_on') || o.includes('date_of_birth') && o != "created_on" && o != "updated_on").forEach(element => {
+          if (modelelement[element] == null) {
+            modelelement[element] = null;
+          }
+          else {
+            modelelement[element] = datepipe.transform(modelelement[element], 'yyyy-MM-dd').toString();
+          }
+        });
+        data.filter(o => o.includes('_time')).forEach(element => {
+          if (modelelement[element] == null) {
+            modelelement[element] = null;
+          }
+          else {
+            modelelement[element] = datepipe.transform(modelelement[element], 'H:mm:ss').toString();
+          }
+        });
+      });
+    }
+    return model;
+  }
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
+  Print(url) {
+    var Printiframe = document.getElementById("Printiframe");
+    var ifrm = document.createElement('iframe');
+    ifrm.setAttribute('id', 'ifrm');
+    ifrm.height = "0px";
+    ifrm.width = "0px";
+    Printiframe.parentNode.insertBefore(ifrm, Printiframe);
+    ifrm.setAttribute('src', url);
+  }
+  GroupTheArray(data: any, ColumnToGroup: any) {
+    let sorcedata = [...data];
+    let Groupdata = {};
+    if (sorcedata) {
+      for (let i = 0; i < sorcedata.length; i++) {
+        let rowData = sorcedata[i];
+        let ColumnName = rowData[ColumnToGroup];
+        if (i == 0) {
+          Groupdata[ColumnName] = { index: 0, size: 1 };
+        }
+        else {
+          let previousRowData = sorcedata[i - 1];
+          let previousRowGroup = previousRowData[ColumnName];
+          if (ColumnName === previousRowGroup)
+            Groupdata[ColumnName].size++;
+          else
+            Groupdata[ColumnName] = { index: i, size: 1 };
+        }
+      }
+    }
+    return Groupdata;
+  }
+  GetLastDateOfMoth(date: Date) {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+  GetFirstDateOfMoth(date: Date) {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
   }
 
+  DuplicateCheckForInlineEdit(data: any, key: string) {
+    let ff = new GroupByPipe().transform(data, key);
+    if (ff.filter(o => o.value.length > 1) == 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  ValidateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
 }
